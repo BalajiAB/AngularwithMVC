@@ -1,0 +1,9 @@
+﻿@if (ViewBag.DocType.Equals("psd"))
+{
+    Html.RenderPartial("_Employee");
+    Html.RenderPartial("_Student");    
+}
+else
+{    
+    Html.RenderPartial("_Employee");
+}

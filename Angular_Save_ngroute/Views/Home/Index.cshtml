@@ -1,0 +1,87 @@
+﻿@model Angular_Save_ngroute.Models.PSDViewModel
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="row">
+    <div class="container">
+
+    </div>
+    <a href="/#/p1">p1</a>
+    <a href="/#/p2">p2</a>
+    <div class="container" ng-view>
+
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-route.min.js"></script>
+
+<script type="text/javascript">
+    (function () {
+        var app = angular.module("testmodule", ['ngRoute']);
+        app.config(function ($routeProvider) {
+            $routeProvider.when("/p1",
+                {
+                    controller: "stud",
+                    templateUrl: "Home/GetView/psd"
+                }).when("/p1/:docno", {
+                    controller: "p1Controller",
+                }).when("/p2", {
+                    controller: "p2Controller",
+                    templateUrl: "Home/GetView/pag"
+                }).otherwise({ redirectTo: "/" });
+        })
+
+        var p2Controller = function ($scope, $routeParams, p1Service, $filter) {
+
+            $scope.employees = [];
+            $scope.employee = {};
+            $scope.showme = true;
+            
+            $scope.AddEmployee = function () {
+
+                $scope.employees.push(angular.copy($scope.employee));
+                $scope.employee = {};
+            }
+            
+            $scope.EditEmployee = function (ename) {
+
+                $scope.employee = $filter('filter')($scope.employees, { Name: ename })[0];
+                $scope.showme = true;
+            }
+
+            $scope.DeleteEmployee = function (index) {
+                $scope.employees.splice(index, 1);
+                $scope.vendor = {};
+            }
+
+            $scope.Save = function () {
+                p1Service.Save({ employees: $scope.employee });
+            }
+
+            $scope.ListEmployees = function () {
+                $scope.showme = false;
+            }
+        }
+
+        var p1Service = function ($http) {
+            this.Save = function (xyz) {
+                $http.post("/PSD/Save", xyz).success(function (result) {
+                    alert(result.Status);
+                });
+            }
+        }        
+        angular.module('testmodule').controller('p2Controller', p2Controller);        
+        angular.module('testmodule').service('p1Service', p1Service)
+    }());
+    </Script>
+ }
+

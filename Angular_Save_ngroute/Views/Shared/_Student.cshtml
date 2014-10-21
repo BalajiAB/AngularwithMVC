@@ -1,0 +1,88 @@
+﻿@model Angular_Save_ngroute.Models.student
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>student</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sno)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sno)            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sname)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sname)
+            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.fee)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fee)            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.m1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.m1)           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.m2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.m2)           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.m3)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.m3)           
+        </div>
+
+        <div class="row top-padding">
+            <div class="col-md-2 pull-right">
+                <div class="row">
+                    <div class="col-md-10 pull-right">
+                        <button type="button" class="btn btn-danger" ng-click="AddStudents()">Add</button>
+                        <button type="button" class="btn btn-danger" ng-click="ListStudents()">List</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-3">
+                <table class="table table-striped">
+                    <tr ng-repeat="vendordata in vendors">
+                        <td>{{Stud.sname}}</td>
+                        <td><a ng-click="EditStudent(Stud.sname)">Edit</a></td>
+                        <td><a ng-click="DeleteStudent($index)">Delete</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

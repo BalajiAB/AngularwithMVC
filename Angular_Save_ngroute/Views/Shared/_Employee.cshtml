@@ -1,0 +1,70 @@
+﻿@model Angular_Save_ngroute.Models.Employee
+
+<div class="row">
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-3">
+                        Employee List
+                    </div>
+                    <div class="col-md-3">
+                        No of Employees - {{employees.length}}
+                    </div>
+                </div>                
+            </div>
+            <div class="panel-body">
+                <div ng-show="showme">
+                    <div class="row" style="padding-top:10px">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Employee Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @ng_model = "employee.Name" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="padding-top:10px">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Department Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.DeptName, new { @class = "form-control", @ng_model = "employee.DeptName" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <div ng-show="!showme">
+                   <div class="row">
+                       <div class="col-md-6 col-md-offset-5">
+                           <table class="table">
+                               <tr ng-repeat="emp in employees">
+                                   <td>{{emp.Name}}</td>
+                                   <td><a ng-click="EditEmployee(emp.Name)">Edit</a></td>
+                                   <td><a ng-click="DeleteEmployee($index)">Delete</a></td>
+                               </tr>
+                           </table>
+                       </div>
+                   </div>
+               </div>
+                <div class="row">
+                    <div class="col-md-2 pull-right">
+                            <button type="button" class="btn btn-danger" ng-click="AddEmployee()">Add</button>
+                            <button type="button" class="btn btn-danger" ng-click="ListEmployees()">List</button>
+                    </div>
+                </div>
+                <div class="row" style="padding:15px 0 0 15px">
+                    <div class="col-md-2 pull-right">
+                        <button type="button" class="btn btn-danger" ng-click="Save()">Save To DataBase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
